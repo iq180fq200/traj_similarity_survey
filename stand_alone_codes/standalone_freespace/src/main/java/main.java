@@ -142,7 +142,7 @@ public class main {
 
 
         //********** the output file folder and names*******************
-        String _all_result_directory = "./results_"+data_dir.split("\\\\")[data_dir.split("\\\\").length - 1];
+        String _all_result_directory = "./results_"+data_dir.split("/")[data_dir.split("/").length - 1];
         File all_result_directory = new File(_all_result_directory);
         if (!all_result_directory.exists()){
             all_result_directory.mkdir();
