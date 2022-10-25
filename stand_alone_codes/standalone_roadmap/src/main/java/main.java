@@ -353,8 +353,8 @@ public class main {
             str_time = str_time.replace(" ","").replace("[","").replace("]","").replace("'","");
             ArrayList<Integer> segIDs=new ArrayList<>();
             ArrayList<Double> timestamps = new ArrayList<Double>();
-            String[] s=str.replace("[","").replace("]","").split(", ");
-            String[] times = str_time.split(",");
+            String[] s=str.replace("[","").replace("]","").replace(" ","").split(",");
+            String[] times = str_time.replace("[","").replace("]","").replace(" ","").split(",");
             if(s.length==1)
                 s=s[0].split(",");
             int maxSegNum=(int) Math.ceil(ratio_length*s.length);
