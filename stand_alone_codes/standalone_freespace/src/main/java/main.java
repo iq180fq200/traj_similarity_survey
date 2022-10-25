@@ -41,7 +41,7 @@ public class main {
         //*********ground truth*********************
         trialType=TrialType.GROUND_TRUTH;
         ratio_length=1.0;
-        seg_number=100;
+        seg_number=10000;
         sampleRate=1.0;
         noiseRate=0.0;
         queryLength=1.0;
