@@ -31,6 +31,7 @@ public class main {
     //valuables: input file type, algorithm, number of k, trajectory length, trajectory number; time, result
     public static void main(String[] args) throws Exception {
         data_dir = args[0];
+        data_dir = data_dir.replace("\\\\","/");
         TP_lamda = Double.valueOf(args[1]);
         ERP_ref_ID = Long.valueOf(args[2]);
 
@@ -128,7 +129,7 @@ public class main {
 
 
         //********** to check everytime before the experiment*******************
-        String _all_result_directory = "./results_"+data_dir.split("\\\\")[data_dir.split("\\\\").length - 1];
+        String _all_result_directory = "./results_"+data_dir.split("/")[data_dir.split("/").length - 1];
         File all_result_directory = new File(_all_result_directory);
         if (!all_result_directory.exists()){
             all_result_directory.mkdir();
