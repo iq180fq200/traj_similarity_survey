@@ -27,6 +27,7 @@ public class main {
 //valuables: input file type, algorithm, number of k, trajectory length, trajectory number; time, result
     public static void main(String[] args) throws IOException {
         data_dir = args[0];
+        data_dir = data_dir.replace("\\\\","/");
         threshold = Double.valueOf(args[1]);
         TrialType trialType;
         boolean needTrans;// if need to transfer from long,lat to mercator when building the trajectory
@@ -142,6 +143,7 @@ public class main {
 
 
         //********** the output file folder and names*******************
+
         String _all_result_directory = "./results_"+data_dir.split("/")[data_dir.split("/").length - 1];
         File all_result_directory = new File(_all_result_directory);
         if (!all_result_directory.exists()){
