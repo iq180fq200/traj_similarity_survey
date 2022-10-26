@@ -68,9 +68,9 @@ public class RoadMap {
         BufferedReader bf2=new BufferedReader(new FileReader(f3));
         String str2;
         int countline=0;
-        while((str2=bf2.readLine())!=null){
+        while((str2=bf2.readLine())!=null && countline < distanceTable.length){
             String[] elements=str2.split(",");//elements of one line in the node table
-            for(int i=0;i<elements.length;i++){
+            for(int i=0;i<distanceTable.length;i++){
                 distanceTable[countline][i]=Double.valueOf(elements[i]);
             }
             countline+=1;
