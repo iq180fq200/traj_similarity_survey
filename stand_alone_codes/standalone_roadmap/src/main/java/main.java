@@ -158,7 +158,7 @@ public class main {
                 resultFile = "ground_Truth";
                 break;
             case QUERY_TRAJECTORY:
-                resultFile = data_dir.split("\\\\")[data_dir.split("\\\\").length - 1].replace(".txt","");
+                resultFile = queryfilePath.split("/")[queryfilePath.split("/").length - 1].replace("_query.txt","");
                 break;
             default:
                 resultFile = "";
