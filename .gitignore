@@ -81,3 +81,6 @@ fabric.properties
 
 results*/
 result*/
+
+*.rar
+*.zip
