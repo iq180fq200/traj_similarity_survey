@@ -1,0 +1,1 @@
+ spark-submit --class Main --master spark://node188:7077 TrajecorySearch-1.0-SNAPSHOT-jar-with-dependencies.jar 1.0 hdfs://node188:4399/hanxi/data/dita&repose/geolife/freespace_data50000 hdfs://node188:4399/hanxi/data/dita&repose/geolife/queryData.txt 113.5 118.3 37.4 42

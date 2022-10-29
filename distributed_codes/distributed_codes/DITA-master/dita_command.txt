@@ -1,0 +1,51 @@
+
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.catalyst.expressions.dita.common.DITAConfigConstants
+import org.apache.spark.sql.catalyst.expressions.dita.common.shape.{Point, Rectangle}
+import org.apache.spark.sql.catalyst.expressions.dita.common.trajectory.{Trajectory, TrajectorySimilarity}
+import org.apache.spark.sql.execution.dita.algorithms.{TrajectoryRangeAlgorithms, TrajectorySimilarityWithKNNAlgorithms, TrajectorySimilarityWithThresholdAlgorithms}
+import org.apache.spark.sql.execution.dita.rdd.TrieRDD
+val candidate_ratio=0.2f
+val ratio_length=1.0f
+val spark = SparkSession
+  .builder()
+  .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+  .getOrCreate()
+
+
+def getTrajectory(line: (String, Long),ratio:Float): Trajectory = {
+  val _points = line._1.split(";").map(_.split(","))
+    .map(x => Point(x.map(_.toDouble)))
+val points=_points.take(math.ceil(ratio*_points.length).toInt)
+  Trajectory(points)
+}
+
+val trajs = spark.sparkContext
+      .textFile("hdfs://node188:4399/hanxi/data/dita&repose/geolife/freespace_data50000.txt")
+      .zipWithIndex().map(x=>getTrajectory(x,ratio_length))
+      .filter(_.points.length >= DITAConfigConstants.TRAJECTORY_MIN_LENGTH)
+      .filter(_.points.length <= DITAConfigConstants.TRAJECTORY_MAX_LENGTH).sample(false,candidate_ratio)
+
+
+    println(s"Trajectory count: ${trajs.count()}")
+
+
+val rdd1 = new TrieRDD(trajs)
+
+
+    val queryTrajectory= spark.sparkContext
+  .textFile("hdfs://node188:4399/hanxi/data/dita&repose/geolife/queryData.txt")
+  .zipWithIndex().map(x=>getTrajectory(x,ratio_length))
+  .filter(_.points.length >= DITAConfigConstants.TRAJECTORY_MIN_LENGTH)
+  .filter(_.points.length <= DITAConfigConstants.TRAJECTORY_MAX_LENGTH).take(1).head
+   
+
+// knn search
+val knnSearch = TrajectorySimilarityWithKNNAlgorithms.DistributedSearch
+val start = System.currentTimeMillis()
+val knnSearchAnswer =
+  knnSearch.search(spark.sparkContext, queryTrajectory,
+    rdd1, TrajectorySimilarity.DTWDistance, 50)
+val end = System.currentTimeMillis()
+println(s"KNN search answer count: ${knnSearchAnswer.count()}")
+println(s"KNN search answer time: ${end-start} ms")
