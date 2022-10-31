@@ -4,10 +4,11 @@ package indexes;
 import entity.Trajectory;
 import indexes.LAESA.LAESA;
 import indexes.MVP.MVP_tree;
+import indexes.PM_Tree.PM_Tree;
 import measures.CalDistance;
 import utils.global_variables;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public final class index_utils {
     public static Index build_index_on_preindex_LAESA(CalDistance calculator,ArrayList<Trajectory> trajectories,int pivot_num,Index pre_index){
@@ -44,11 +45,6 @@ public final class index_utils {
                 endtime = System.currentTimeMillis();
 
                 break;
-            case "Omni-family":
-                starttime = System.currentTimeMillis();
-
-                endtime = System.currentTimeMillis();
-                break;
             case "LAESA":
                 starttime = System.currentTimeMillis();
                 index = new LAESA(trajectories,calculator,1);
@@ -56,14 +52,10 @@ public final class index_utils {
                 index.build_index();
                 endtime = System.currentTimeMillis();
                 break;
-            case "M-index":
+            case "PMTree":
                 starttime = System.currentTimeMillis();
-
-                endtime = System.currentTimeMillis();
-                break;
-            case "SPBTree":
-                starttime = System.currentTimeMillis();
-
+                index = new PM_Tree(100,16,5,calculator,trajectories);
+                index.build_index();
                 endtime = System.currentTimeMillis();
                 break;
         }
@@ -74,6 +66,18 @@ public final class index_utils {
     public static <T extends Object> T get_random(ArrayList<T> list){
         int index = (int) (Math.random()* list.size());
         return list.get(index);
+    }
+    public static ArrayList<Integer> get_random_number(int max,int size){
+        Random myRandom = new Random();
+        Set<Integer> luckNums = new HashSet<>(size);
+        for(int i=0; i<size; i++) {
+            int randomNum = myRandom.nextInt(max);
+            while(luckNums.contains(randomNum)) {
+                randomNum = myRandom.nextInt(max);
+            }
+            luckNums.add(randomNum);
+        }
+        return new ArrayList<Integer>(luckNums);
     }
 
 
