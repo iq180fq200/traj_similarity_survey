@@ -13,7 +13,11 @@ import java.util.Iterator;
  * discription
  */
 public class NetLCSS implements CalculateDistance{
-    double threshold=1000;
+    double threshold;
+
+    public NetLCSS(double threshold){
+        this.threshold = threshold;
+    }
 
     @Override
     public double GetDistance(Trajectory T1, Trajectory T2, RoadMap roadMap) {

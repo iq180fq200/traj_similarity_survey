@@ -16,8 +16,12 @@ import java.util.Map;
  */
 public class NetERP implements CalculateDistance{
     private Long reference_id;
+    private Point reference_point = null;
     public NetERP(Long reference_id){
         this.reference_id = reference_id;
+    }
+    public NetERP(Point point){
+        this.reference_point = point;
     }
     @Override
     public double GetDistance(Trajectory T1, Trajectory T2, RoadMap roadMap) {
@@ -26,7 +30,14 @@ public class NetERP implements CalculateDistance{
         int m = T1.points.size(), n = T2.points.size();
 
 //get the gap point
-        Point gap = roadMap.pointTable.get(reference_id);
+        Point gap;
+        if(reference_point != null){
+            gap = reference_point;
+        }
+        else{
+            gap = roadMap.pointTable.get(reference_id);
+        }
+
 
 
         Map<Point, Double> mapGapDist = new HashMap<>();

@@ -18,6 +18,8 @@ public class main {
     private static int[][] ground_truth=null;
     private static double TP_lamda;
     private static Long ERP_ref_ID;
+    private static double EDR_LCSS_threshold;
+
     public enum TrialType {
         GROUND_TRUTH,
         NOISED,
@@ -34,6 +36,7 @@ public class main {
         data_dir = data_dir.replace("\\\\","/");
         TP_lamda = Double.valueOf(args[1]);
         ERP_ref_ID = Long.valueOf(args[2]);
+        EDR_LCSS_threshold = Double.valueOf(args[3]);
 
 
         TrialType trialType;
@@ -102,7 +105,7 @@ public class main {
         String[] querypaths={data_dir+"/queries/straight_line_query.txt",data_dir+"/queries/polyline_nooverlap_query.txt",data_dir+"/queries/polyline_overlap_query.txt",data_dir+"/queries/round_query.txt"};
         candidateFilePath=data_dir+"/trajectories/shape.txt";
         ratio_length=1.0;
-        seg_number=Integer.valueOf(args[3]);
+        seg_number=Integer.valueOf(args[4]);
         noiseRate=0.0;
         for(String qp:querypaths){
             queryFilePath=qp;
@@ -198,7 +201,7 @@ public class main {
         //******************************
 
         //*****************EDR*****************
-        NormalTest(answers,times,trajectories,test,kk,2,new NetEDR(),roadMap);
+        NormalTest(answers,times,trajectories,test,kk,2,new NetEDR(EDR_LCSS_threshold),roadMap);
         System.out.println("EDR finish");
         //******************************
 
@@ -208,7 +211,7 @@ public class main {
         //******************************
 
         //*****************NetLCSS****************
-        NormalTest(answers,times,trajectories,test,kk,4,new NetLCSS(),roadMap);
+        NormalTest(answers,times,trajectories,test,kk,4,new NetLCSS(EDR_LCSS_threshold),roadMap);
         System.out.println("LCSS finish");
         //******************************
 

@@ -38,7 +38,10 @@ public class Point {
         this.y=y;
     }
     public static double getLength(Point b1,Point b2,RoadMap roadmap){
-        return roadmap.distanceTable[b1.osmID][b2.osmID];
+        if (roadmap != null)
+            return roadmap.distanceTable[b1.osmID][b2.osmID];
+        else
+            return Math.sqrt(Math.pow((b1.x - b2.x),2) + Math.pow((b1.y - b2.y),2));
     }
 }
 

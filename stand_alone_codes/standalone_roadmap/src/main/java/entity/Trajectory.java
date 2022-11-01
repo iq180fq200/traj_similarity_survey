@@ -29,9 +29,10 @@ public class Trajectory {
         return string.toString();
     }
 
-    public Trajectory(ArrayList<Point> points,ArrayList<Segment> segments){
+    public Trajectory(ArrayList<Point> points,ArrayList<Segment> segments,ArrayList<Double>_timestamps){
         this.points=points;
         this.segments=segments;
+        this.timestamps = _timestamps;
     }
 
 

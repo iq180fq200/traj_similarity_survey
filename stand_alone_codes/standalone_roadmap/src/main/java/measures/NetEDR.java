@@ -13,7 +13,12 @@ import java.util.Iterator;
  * discription
  */
 public class NetEDR implements CalculateDistance{
-    double threshold=1000;
+//    double threshold=1000;
+    double threshold;
+
+    public NetEDR(double threshold){
+        this.threshold = threshold;
+    }
 
 
     @Override
