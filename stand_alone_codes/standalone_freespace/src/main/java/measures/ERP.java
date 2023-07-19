@@ -24,10 +24,6 @@ public class ERP implements CalDistance {
         ArrayList<Point> ps2 = T2.points;
         int m = T1.points.size(), n = T2.points.size();
 
-        //get the gap point
-//        Point gap = new Point(-103.0,44.0,true);
-
-
         Map<Point, Double> mapGapDist = new HashMap<>();
         ps1.forEach(point -> {
             mapGapDist.put(point, Point.getLength(point,gap));

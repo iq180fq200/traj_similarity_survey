@@ -25,25 +25,33 @@ public class test {
 //                "EDwP",
 //                "Seg-Frechet"};
         String[] methods = {
-                "EDwP"
+                "DTW"
         };
         for(String item: methods){
             CalDistance calculator;
             switch (item){
-//                case "LCSS" : calculator = new LCSS(1.0);break;
-//                case "DTW" : calculator = new DTW();break;
-//                case "EDR" : calculator = new EDR(1.0);break;
-//                case "ERP" : calculator = new ERP(new Point(3.0,4.0));break;
-//                case "Frechet" : calculator = new DiscreteFrechetDistance();break;
-//                case "Hausdorff" : calculator = new Hausdorff();break;
-//                case "OWD" : calculator = new OWD();break;
-//                case "LIP" : calculator = new LIP();break;
+                case "LCSS" : calculator = new LCSS(1.0);break;
+                case "DTW" : calculator = new DTW();break;
+                case "EDR" : calculator = new EDR(1.0);break;
+                case "ERP" : calculator = new ERP(new Point(3.0,4.0));break;
+                case "Frechet" : calculator = new DiscreteFrechetDistance();break;
+                case "Hausdorff" : calculator = new Hausdorff();break;
+                case "OWD" : calculator = new OWD();break;
+                case "LIP" : calculator = new LIP();break;
                 case "EDwP" : calculator = new EDWP_DP();break;
-//                case "Seg-Frechet":calculator = new NetFrechet();break;
+                case "Seg-Frechet":calculator = new NetFrechet();break;
                 default:calculator = null;
             }
-            double dist = calculator.GetDistance(query,traj);
+            long begintime;
+            long endtime;
+            begintime = System.currentTimeMillis();
+            double dist =0;
+            for(int i = 0; i< 10000;i++){
+                dist = calculator.GetDistance(query,traj);
+            }
+            endtime = System.currentTimeMillis();
             System.out.println(item+" : "+Double.toString(dist));
+            System.out.println(endtime - begintime);
         }
     };
     static Trajectory get_string_traj(String _T){
