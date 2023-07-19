@@ -134,8 +134,9 @@ public class LIP implements CalDistance{
                     list1.addAll(list2);
                     Polygon poly=new Polygon(list1);
                     area=poly.calculateArea();
-//                    System.out.println(area);
+                    System.out.println("Area is "+area);
                     dis=poly.calculatePerimeter();
+                    System.out.println("Dis is "+dis);
                     totalDis+=dis;
                     t+=area*dis;
                     //reset the lists
@@ -165,10 +166,12 @@ public class LIP implements CalDistance{
         list1.addAll(list2);
         Polygon poly=new Polygon(list1);
         area=poly.calculateArea();
-//        System.out.println(area);
+        System.out.println("Area is "+area);
         dis=poly.calculatePerimeter();
+        System.out.println("dis is "+dis);
         totalDis+=dis;
         t+=area*dis;
+
 
         //get the lip
         return t/totalDis;

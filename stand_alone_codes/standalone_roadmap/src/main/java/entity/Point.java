@@ -41,7 +41,8 @@ public class Point {
         if (roadmap != null)
             return roadmap.distanceTable[b1.osmID][b2.osmID];
         else
-            return Math.sqrt(Math.pow((b1.x - b2.x),2) + Math.pow((b1.y - b2.y),2));
+//            return Math.sqrt(Math.pow((b1.x - b2.x),2) + Math.pow((b1.y - b2.y),2));
+            return Math.abs(b1.x-b2.x) + Math.abs(b1.y - b2.y);
     }
 }
 

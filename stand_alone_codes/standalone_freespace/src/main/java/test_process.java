@@ -4,7 +4,7 @@ import measures.*;
 
 import java.util.ArrayList;
 
-public class test {
+public class test_process {
     public static void main(String[] args){
 
         String T1 = "[(1,3,1s),(3,6,3s),(4,2,4s),(6,4,6s),(7,3,9s)]";
@@ -24,9 +24,7 @@ public class test {
 //                "LIP",
 //                "EDwP",
 //                "Seg-Frechet"};
-        String[] methods = {
-                "EDwP"
-        };
+        String[] methods = {"OWD"};
         for(String item: methods){
             CalDistance calculator;
             switch (item){
@@ -36,9 +34,9 @@ public class test {
 //                case "ERP" : calculator = new ERP(new Point(3.0,4.0));break;
 //                case "Frechet" : calculator = new DiscreteFrechetDistance();break;
 //                case "Hausdorff" : calculator = new Hausdorff();break;
-//                case "OWD" : calculator = new OWD();break;
+                case "OWD" : calculator = new OWD();break;
 //                case "LIP" : calculator = new LIP();break;
-                case "EDwP" : calculator = new EDWP_DP();break;
+//                case "EDwP" : calculator = new EDWP_DP();break;
 //                case "Seg-Frechet":calculator = new NetFrechet();break;
                 default:calculator = null;
             }

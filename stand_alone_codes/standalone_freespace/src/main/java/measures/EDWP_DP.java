@@ -96,12 +96,9 @@ public class EDWP_DP implements CalDistance{
                 }
                 double diagCoverage = (Point.getLength(t1.points.get(i), t1.points.get(i - 1))
                     + Point.getLength(t2.points.get(j), t2.points.get(j - 1))) / totalLength;
-//                double diagCoverage = (t1.edgeLength(i - 1) + t2.edgeLength(j - 1)) / totalLength;
 
                 double subScore = (Point.getLength(t2.points.get(j), t1.points.get(i))
                         + Point.getLength(t2.points.get(j - 1), t1.points.get(i - 1))) * diagCoverage;
-//                double subScore = (distFunc.distance(t2Point[j], t1Point[i])
-//                        + distFunc.distance(t2Point[j - 1], t1Point[i - 1])) * diagCoverage;
 
                 double diagScore = matrix.value[(i - 1)][(j - 1)] + subScore;
                 if ((diagScore <= colSpatialScore) && (diagScore <= rowSpatialScore)) {
@@ -119,6 +116,8 @@ public class EDWP_DP implements CalDistance{
             }
         }
         // double[] answer = { matrix.score(), this.time };
+//        matrix.print();
+//        matrix.printPath();
         return matrix.score();
     }
 

@@ -12,6 +12,7 @@ public class OWD implements CalDistance {
     @Override
     public double GetDistance(Trajectory T1, Trajectory T2) {
         double t1OWD=getOWD(T1.points,T2.points,T2.GetSegments());
+        System.out.println();
         double t2OWD=getOWD(T2.points,T1.points,T1.GetSegments());
 
 
@@ -41,6 +42,7 @@ public class OWD implements CalDistance {
                 min = temp;
             }
         }
+        System.out.print(min+"+");
         return min;
     }
 

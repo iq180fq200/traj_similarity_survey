@@ -110,21 +110,27 @@ public class TP implements CalculateDistance {
         for (Point p : T1.points) {
             double minDistance = Double.MAX_VALUE;
             for(Point q:T2.points){
-                double d=Point.getLength(p,q,roadMap)/1000;
+//                double d=Point.getLength(p,q,roadMap)/1000; //to kilormeter
+                double d=Point.getLength(p,q,roadMap);
                 if(d<minDistance)
                     minDistance=d;
             }
+            System.out.print(Math.exp(-1 * minDistance)+"("+(-minDistance)+")" + "+");
             totalExponent1 += Math.exp(-1 * minDistance);
         }
+        System.out.println();
         for (Point p : T2.points){
             double minDistance = Double.MAX_VALUE;
             for(Point q:T1.points){
-                double d=Point.getLength(p,q,roadMap)/1000;
+//                double d=Point.getLength(p,q,roadMap)/1000; //to kilormeter
+                double d=Point.getLength(p,q,roadMap);
                 if(d<minDistance)
                     minDistance=d;
             }
+            System.out.print(Math.exp(-1 * minDistance)+"("+(-minDistance)+")"  + "+");
             totalExponent2 += Math.exp(-1 * minDistance);
         }
+        System.out.println();
         double totalTimeExponent1=0,totalTimeExponent2=0;
         double t1_min = T1.timestamps.get(0);
         double t2_min = T2.timestamps.get(0);
@@ -135,8 +141,10 @@ public class TP implements CalculateDistance {
                 if (d < minTimeDiatance)
                     minTimeDiatance = d;
             }
+            System.out.print(Math.exp(-1 * minTimeDiatance) + "+");
             totalTimeExponent1 += Math.exp(-1*minTimeDiatance);
         }
+        System.out.println();
 
 
         for (double t2:T2.timestamps){
@@ -146,8 +154,10 @@ public class TP implements CalculateDistance {
                 if (d < minTimeDiatance)
                     minTimeDiatance = d;
             }
+            System.out.print(Math.exp(-1 * minTimeDiatance) + "+");
             totalTimeExponent2 += Math.exp(-1*minTimeDiatance);
         }
+        System.out.println();
 
 
         return -(lamda*(totalExponent1 / T1.points.size() + totalExponent2 / T2.points.size())+(1-lamda)*

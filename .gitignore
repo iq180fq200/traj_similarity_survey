@@ -84,3 +84,7 @@ result*/
 
 *.rar
 *.zip
+/result*/
+
+*.csv
+*.txt

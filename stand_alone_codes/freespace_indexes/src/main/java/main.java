@@ -74,48 +74,48 @@ public class main {
 //
 //        }
 
-//        //for LAESA
-//        int min_pivot_num = 1;
-//        int max_pivot_num = 51;
-//        int step = 2;
-//        result_directory = new File(_all_result_directory+"/LAESA");
-//        if (!result_directory.exists()){
-//            result_directory.mkdir();
-//        }
-//        for (int i = 0; i < str_calculators.length; i++) {
-//            CalDistance calculator = calculators[i];
-//            Index pre_index = null;
-//            for(int k = min_pivot_num; k <= max_pivot_num ;k = k + step){
-//                global_variables.pivot_num.add(k);
-//                Index index = build_index_on_preindex_LAESA(calculator, trajectories,k,pre_index);
-//                Long start = System.currentTimeMillis();
-//                index.knn_search(query, 50);
-//                Long end = System.currentTimeMillis();
-//                global_variables.searching_times.add(end - start);
-//                pre_index = index;
-//            }
-//
-//            IO.Output( result_directory+"/"+str_calculators[i]);
-//            global_variables.clearlogs();
-//        }
-//
-//
-//        //for MVP tree
-//        result_directory = new File(_all_result_directory+"/MVP");
-//        if (!result_directory.exists()){
-//            result_directory.mkdir();
-//        }
-//        for (int i = 0; i < str_calculators.length; i++) {
-//            CalDistance calculator = calculators[i];
-//            Index index = build_index("MVPTree",calculator,trajectories);
-//            ((MVP_tree) index).print_index();
-//            Long start = System.currentTimeMillis();
-//            index.knn_search(query, 50);
-//            Long end = System.currentTimeMillis();
-//            global_variables.searching_times.add(end - start);
-//            IO.Output( result_directory+"/"+str_calculators[i]);
-//            global_variables.clearlogs();
-//        }
+        //for LAESA
+        int min_pivot_num = 1;
+        int max_pivot_num = 51;
+        int step = 2;
+        result_directory = new File(_all_result_directory+"/LAESA");
+        if (!result_directory.exists()){
+            result_directory.mkdir();
+        }
+        for (int i = 0; i < str_calculators.length; i++) {
+            CalDistance calculator = calculators[i];
+            Index pre_index = null;
+            for(int k = min_pivot_num; k <= max_pivot_num ;k = k + step){
+                global_variables.pivot_num.add(k);
+                Index index = build_index_on_preindex_LAESA(calculator, trajectories,k,pre_index);
+                Long start = System.currentTimeMillis();
+                index.knn_search(query, 50);
+                Long end = System.currentTimeMillis();
+                global_variables.searching_times.add(end - start);
+                pre_index = index;
+            }
+
+            IO.Output( result_directory+"/"+str_calculators[i]);
+            global_variables.clearlogs();
+        }
+
+
+        //for MVP tree
+        result_directory = new File(_all_result_directory+"/MVP");
+        if (!result_directory.exists()){
+            result_directory.mkdir();
+        }
+        for (int i = 0; i < str_calculators.length; i++) {
+            CalDistance calculator = calculators[i];
+            Index index = build_index("MVPTree",calculator,trajectories);
+            ((MVP_tree) index).print_index();
+            Long start = System.currentTimeMillis();
+            index.knn_search(query, 50);
+            Long end = System.currentTimeMillis();
+            global_variables.searching_times.add(end - start);
+            IO.Output( result_directory+"/"+str_calculators[i]);
+            global_variables.clearlogs();
+        }
 
         //for PM-tree
         result_directory = new File(_all_result_directory+"/PM_Tree");

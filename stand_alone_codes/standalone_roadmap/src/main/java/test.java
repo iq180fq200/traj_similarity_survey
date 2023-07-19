@@ -23,6 +23,7 @@ public class test {
                 "NetLCSS",
                 "TP",
                 "NetDTW"};
+//        String[] methods = {"TP"};
         for(String item: methods){
             CalculateDistance calculator;
             switch (item){

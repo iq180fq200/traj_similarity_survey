@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class main {
+public class supplement_experience {
     private static int[][] ground_truth=null;
     private static String data_dir="";
     private static double threshold;//the threshold for both EDR and LCSS
@@ -27,8 +27,8 @@ public class main {
 //valuables: input file type, algorithm, number of k, trajectory length, trajectory number; time, result
     public static void main(String[] args) throws IOException {
         data_dir = args[0];
-        data_dir = data_dir.replace("\\\\","/");
-        threshold = Double.valueOf(args[1]);
+//        data_dir = data_dir.replace("\\\\","/");
+//        threshold = Double.valueOf(args[1]);
         TrialType trialType;
         boolean needTrans;// if need to transfer from long,lat to mercator when building the trajectory
         String filePath;
@@ -40,101 +40,27 @@ public class main {
 
 
         //*********ground truth*********************
-        trialType=TrialType.GROUND_TRUTH;
+        trialType= TrialType.GROUND_TRUTH;
         ratio_length=1.0;
         seg_number=10000;
         sampleRate=1.0;
         noiseRate=0.0;
         queryLength=1.0;
-        filePath=data_dir+"/trajectories/origin.txt";
+        filePath=data_dir+"/trajectories/trajs_walk.txt";
         needTrans=true;
         testOneRound(trialType,needTrans,filePath,ratio_length,seg_number,sampleRate,noiseRate,queryLength);
         //*********************
-
-//        //different sample rate*********************
-//        double [] sample_rates={0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.6,0.8};
-//        trialType=TrialType.SAMPLE_RATE;
-//        ratio_length=1.0;
-//        seg_number=10000;
-//        noiseRate=0.0;
-//        queryLength=1.0;
-//        filePath=data_dir+"/trajectories/origin.txt";
-//        needTrans=true;
-//        for(double rate:sample_rates){
-//            sampleRate=rate;
-//            testOneRound(trialType,needTrans,filePath,ratio_length,seg_number,sampleRate,noiseRate,queryLength);
-//        }
-
-        //different query number*********************
-        int [] qns={2000,4000,6000,8000};
-        trialType=TrialType.DATA_AMOUNT;
-        ratio_length=1.0;
-        sampleRate=1.0;
-        noiseRate=0.0;
-        queryLength=1.0;
-        filePath=data_dir+"/trajectories/origin.txt";
-        needTrans=true;
-        for(int num:qns){
-            seg_number=num;
-            testOneRound(trialType,needTrans,filePath,ratio_length,seg_number,sampleRate,noiseRate,queryLength);
-        }
-
-//        //different length*********************
-//        double [] length_rates={0.2,0.4,0.6,0.8};
-//        trialType=TrialType.TRAJECTORY_LENGTH;
-//       seg_number=10000;
-//        sampleRate=1.0;
-//        noiseRate=0.0;
-//        queryLength=1.0;
-//        filePath=data_dir+"/trajectories/origin.txt";
-//        needTrans=true;
-//        for(double lrate:length_rates){
-//            ratio_length=lrate;
-//            testOneRound(trialType,needTrans,filePath,ratio_length,seg_number,sampleRate,noiseRate,queryLength);
-//        }
-//
-//        //***********************different noise
-//        double [] noise_rate={0.03,0.06,0.08,0.1,0.13,0.16,0.19,0.22};
-//        trialType=TrialType.NOISED;
-//        seg_number=10000;
-//        sampleRate=1.0;
-//        queryLength=1.0;
-//        needTrans=true;//already mercato
-//        for(double noise:noise_rate){
-//            noiseRate=noise;
-//            filePath=data_dir+"/trajectories/noise_"+Double.toString(noise).replace('.','_')+".txt";
-//            testOneRound(trialType,needTrans,filePath,ratio_length,seg_number,sampleRate,noiseRate,queryLength);
-//        }
-//
-//        //***********different  query length
-//        double [] query_length={0.2,0.4,0.6,0.8};
-//        trialType=TrialType.QUERY_LENGTH;
-//        seg_number=10000;
-//        sampleRate=1.0;
-//        noiseRate=0.0;
-//        filePath=data_dir+"/trajectories/origin.txt";
-//        needTrans=true;
-//        for(double ql:query_length){
-//            queryLength=ql;
-//            testOneRound(trialType,needTrans,filePath,ratio_length,seg_number,sampleRate,noiseRate,queryLength);
-//        }
 
     }
 
     public static void testOneRound(TrialType trailType,boolean needTrans,String filePath,double ratio_length,int seg_number,double sampleRate,double noiseRate,double queryLength) throws IOException {
         //****************************to check when the global structure of experiment is changed
-        String queryfilePath=data_dir+"/queries/query.txt";
+        String queryfilePath=data_dir+"/queries/query_walk.txt";
         int kk=50;
-        String[] methods={"DTW",
-                "LCSS",
-                "EDR",
-                "ERP",
+        String[] methods={
                 "Frechet",
-                "Hausdorff",
-                "OWD",
-                "LIP",
-                "EDwP",
-        "Seg-Frechet"};// all the methods to be tested
+                "Hausdorff"
+};// all the methods to be tested
 //        String[] methods ={
 //                "Seg-Frechet"
 //        };
@@ -142,46 +68,46 @@ public class main {
 
 
 
-        //********** the output file folder and names*******************
+//        //********** the output file folder and names*******************
+//
+//        String _all_result_directory = "./results_supplement_"+data_dir.split("/")[data_dir.split("/").length - 1];
+//        File all_result_directory = new File(_all_result_directory);
+//        if (!all_result_directory.exists()){
+//            all_result_directory.mkdir();
+//        }
+//
+//        String resultFolder=_all_result_directory + "/" + trailType.name()+"/";
+//        //if the folder doesn't exist, make it
+//        File directory = new File(resultFolder);
+//        if (! directory.exists()){
+//            directory.mkdir();
+//        }
+//        String resultFile;
+//
+//        switch(trailType){
+//            case TRAJECTORY_LENGTH:
+//                resultFile="length_ratio_"+Double.toString(ratio_length);
+//                break;
+//            case DATA_AMOUNT:
+//                resultFile="trajectory_amount_"+Integer.toString(seg_number);
+//                break;
+//            case SAMPLE_RATE:
+//                resultFile="sample_rate_"+Double.toString(sampleRate);
+//                break;
+//            case NOISED:
+//                resultFile="noise_rate_"+Double.toString(noiseRate);
+//                break;
+//            case GROUND_TRUTH:
+//                resultFile="ground_Truth";
+//                break;
+//            case QUERY_LENGTH:
+//                resultFile="query_length"+"_"+Double.toString(queryLength);
+//                break;
+//            default:
+//                resultFile="";
+//        }
 
-        String _all_result_directory = "./results_"+data_dir.split("/")[data_dir.split("/").length - 1];
-        File all_result_directory = new File(_all_result_directory);
-        if (!all_result_directory.exists()){
-            all_result_directory.mkdir();
-        }
-
-        String resultFolder=_all_result_directory + "/" + trailType.name()+"/";
-        //if the folder doesn't exist, make it
-        File directory = new File(resultFolder);
-        if (! directory.exists()){
-            directory.mkdir();
-        }
-        String resultFile;
-
-        switch(trailType){
-            case TRAJECTORY_LENGTH:
-                resultFile="length_ratio_"+Double.toString(ratio_length);
-                break;
-            case DATA_AMOUNT:
-                resultFile="trajectory_amount_"+Integer.toString(seg_number);
-                break;
-            case SAMPLE_RATE:
-                resultFile="sample_rate_"+Double.toString(sampleRate);
-                break;
-            case NOISED:
-                resultFile="noise_rate_"+Double.toString(noiseRate);
-                break;
-            case GROUND_TRUTH:
-                resultFile="ground_Truth";
-                break;
-            case QUERY_LENGTH:
-                resultFile="query_length"+"_"+Double.toString(queryLength);
-                break;
-            default:
-                resultFile="";
-        }
-
-        String resultPath=resultFolder+resultFile;
+        String resultPath="./supplement_result.csv";
         //***************************************************************************************
 
         //*******************input candidates*********************
@@ -199,57 +125,17 @@ public class main {
         //*****************************experiment**********************************
         int[][] answers=new int[methods.length][];
         long[] times=new long[methods.length];
-        //*****************DTW*****************
-        NormalTest(answers,times,trajectories,test,kk,0,new DTW());
-        System.out.println("DTW finish");
-        //******************************
 
-        //*****************LCSS*****************
-        NormalTest(answers,times,trajectories,test,kk,1,new LCSS(threshold));
-        System.out.println("LCSS finish");
-        //******************************
-
-        //*****************EDR*****************
-        NormalTest(answers,times,trajectories,test,kk,2,new EDR(threshold));
-        System.out.println("EDR finish");
-        //******************************
-
-        //*****************ERP*****************
-        //get the center of the candidate trajs as the gap point
-        Point gap_p = new Point((boundary[0]+boundary[2])/2,(boundary[1]+boundary[3])/2,true);
-        NormalTest(answers,times,trajectories,test,kk,3,new ERP(gap_p));
-        System.out.println("ERP finish");
-        //******************************
 
         //*****************Frechet*****************
-        NormalTest(answers,times,trajectories,test,kk,4,new DiscreteFrechetDistance());
+        NormalTest(answers,times,trajectories,test,kk,0,new DiscreteFrechetDistance());
         System.out.println("Frechet finish");
         //******************************
 
         //*****************Hausdorff*****************
-        NormalTest(answers,times,trajectories,test,kk,5,new Hausdorff());
+        NormalTest(answers,times,trajectories,test,kk,1,new Hausdorff());
         System.out.println("Hausdorff finish");
         //******************************
-
-        //***********OWD***************
-        NormalTest(answers,times,trajectories,test,kk,6,new OWD());
-        System.out.println("OWD finish");
-        //**************************************************************
-
-        //*****************LIP*****************
-        CalDistance ttt=new LIP();
-        NormalTest(answers,times,trajectories,test,kk,7,ttt);
-        System.out.println("LIP finish");
-        //******************************
-
-        //**************EDwP DP**************
-        EDWPtest_dp(answers,times,trajectories,test,kk,8);
-        System.out.println("EDWP_DP finish");
-
-
-        //**************NetFrechet****************
-        NormalTest(answers,times,trajectories,test,kk,9,new NetFrechet());
-        System.out.println("Seg-Frechet Finish");
 
         Output(resultPath,answers,times,methods);
     }
@@ -269,7 +155,7 @@ public class main {
         ids=GetTopKNearest(kk,measure,test,trajectories);//copy a tet trajectory every round
         endtime=System.currentTimeMillis();
         costTime = (endtime - begintime);
-//        System.out.println(costTime);
+        System.out.println(costTime);
         answers[methodNumber]=ids;
         times[methodNumber]=costTime;
     }
@@ -380,7 +266,7 @@ public class main {
         for(Trajectory T2:all){
             distances[i]=calculator.GetDistance(query,T2);
 //            break;
-//            System.out.println(i+":"+distances[i]);
+            System.out.println(i+":"+distances[i]);
             i++;
         }
         return indexesOfTopElements(distances,k);
