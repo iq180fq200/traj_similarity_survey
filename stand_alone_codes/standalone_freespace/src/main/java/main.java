@@ -39,17 +39,17 @@ public class main {
         double queryLength=1.0;
 
 
-        //*********ground truth*********************
-        trialType=TrialType.GROUND_TRUTH;
-        ratio_length=1.0;
-        seg_number=10000;
-        sampleRate=1.0;
-        noiseRate=0.0;
-        queryLength=1.0;
-        filePath=data_dir+"/trajectories/origin.txt";
-        needTrans=true;
-        testOneRound(trialType,needTrans,filePath,ratio_length,seg_number,sampleRate,noiseRate,queryLength);
-        //*********************
+//        //*********ground truth*********************
+//        trialType=TrialType.GROUND_TRUTH;
+//        ratio_length=1.0;
+//        seg_number=10000;
+//        sampleRate=1.0;
+//        noiseRate=0.0;
+//        queryLength=1.0;
+//        filePath=data_dir+"/trajectories/origin.txt";
+//        needTrans=true;
+//        testOneRound(trialType,needTrans,filePath,ratio_length,seg_number,sampleRate,noiseRate,queryLength);
+//        //*********************
 
 //        //different sample rate*********************
 //        double [] sample_rates={0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.6,0.8};
@@ -65,33 +65,33 @@ public class main {
 //            testOneRound(trialType,needTrans,filePath,ratio_length,seg_number,sampleRate,noiseRate,queryLength);
 //        }
 
-        //different query number*********************
-        int [] qns={2000,4000,6000,8000};
-        trialType=TrialType.DATA_AMOUNT;
-        ratio_length=1.0;
-        sampleRate=1.0;
-        noiseRate=0.0;
-        queryLength=1.0;
-        filePath=data_dir+"/trajectories/origin.txt";
-        needTrans=true;
-        for(int num:qns){
-            seg_number=num;
-            testOneRound(trialType,needTrans,filePath,ratio_length,seg_number,sampleRate,noiseRate,queryLength);
-        }
-
-//        //different length*********************
-//        double [] length_rates={0.2,0.4,0.6,0.8};
-//        trialType=TrialType.TRAJECTORY_LENGTH;
-//       seg_number=10000;
+//        //different query number*********************
+//        int [] qns={2000,4000,6000,8000};
+//        trialType=TrialType.DATA_AMOUNT;
+//        ratio_length=1.0;
 //        sampleRate=1.0;
 //        noiseRate=0.0;
 //        queryLength=1.0;
 //        filePath=data_dir+"/trajectories/origin.txt";
 //        needTrans=true;
-//        for(double lrate:length_rates){
-//            ratio_length=lrate;
+//        for(int num:qns){
+//            seg_number=num;
 //            testOneRound(trialType,needTrans,filePath,ratio_length,seg_number,sampleRate,noiseRate,queryLength);
 //        }
+
+        //different length*********************
+        double [] length_rates={0.2,0.4,0.6,0.8};
+        trialType=TrialType.TRAJECTORY_LENGTH;
+       seg_number=10000;
+        sampleRate=1.0;
+        noiseRate=0.0;
+        queryLength=1.0;
+        filePath=data_dir+"/trajectories/origin.txt";
+        needTrans=true;
+        for(double lrate:length_rates){
+            ratio_length=lrate;
+            testOneRound(trialType,needTrans,filePath,ratio_length,seg_number,sampleRate,noiseRate,queryLength);
+        }
 //
 //        //***********************different noise
 //        double [] noise_rate={0.03,0.06,0.08,0.1,0.13,0.16,0.19,0.22};
